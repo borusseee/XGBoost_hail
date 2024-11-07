@@ -421,8 +421,8 @@ for ii in range(len(indices_train)):
         # Make predictions on the test set
         y_pred = model.predict_proba(X_test)[:, 1]
 
-        # Calculate the negative AUC-ROC (to be minimized)
-        logloss = -log_loss(y_test, y_pred)
+        # Calculate the loss function (to be minimized)
+        logloss = log_loss(y_test, y_pred)
 
         return {'loss': logloss, 'status': STATUS_OK} # Here specify the loss function
 
