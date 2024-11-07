@@ -84,7 +84,7 @@ from sklearn.metrics import roc_curve
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import auc
-
+from sklearn.metrics import log_loss
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 import xarray as xr 
 
@@ -422,9 +422,9 @@ for ii in range(len(indices_train)):
         y_pred = model.predict_proba(X_test)[:, 1]
 
         # Calculate the negative AUC-ROC (to be minimized)
-        auc_roc = -roc_auc_score(y_test, y_pred)
+        logloss = -log_loss(y_test, y_pred)
 
-        return {'loss': auc_roc, 'status': STATUS_OK} # Here specify the loss function
+        return {'loss': logloss, 'status': STATUS_OK} # Here specify the loss function
 
     # Define the hyperparameter search space
     space = {
