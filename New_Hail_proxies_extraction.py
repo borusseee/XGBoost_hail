@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
-#!/usr/bin/env python
 '''
     File name: MAIN-HailVar-extraction.py
     Author: Andreas Prein & Boris Blanc
