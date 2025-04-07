@@ -294,8 +294,9 @@ dataUS = dataUS.reshape(dataUS.shape[0],dataUS.shape[1]*dataUS.shape[2]*dataUS.s
 
 dataEU = rgrERAVarall[7305:,:,60:240,indices]
 dataEU = np.moveaxis(dataEU, 0,1)
-dataEU[:,rgrESSLObs[0,:]==0]=np.nan
+dataEU[:,rgrESSLObs[1,:]<2]=np.nan
 dataEU = dataEU.reshape(dataEU.shape[0],dataEU.shape[1]*dataEU.shape[2]*dataEU.shape[3])
+print(dataEU.shape)
 
 dataAU = rgrERAVarall[0:-2557,:,390:550,430:630]
 dataAU = np.moveaxis(dataAU,0,1)
@@ -339,7 +340,7 @@ aa=0
 bb=0
 alphabet = ['a)', 'b)', 'c)', 'd)', 'e)', 'f)', 'g)', 'h)', 'i)', 'j)', 'k)']
 index = [0,6,8,4,7,2,3,9,1,10,5]
-bin_min = [0,0,35,0,0,0,0,0,0,0,0]
+bin_min = [0,0,35,0,270,0,0,0,0,0,0]
 bin_max = [6000,40,65,200,300,40,6000,100,1000,100,1000]
 
 for ii in range(11):
@@ -349,17 +350,17 @@ for ii in range(11):
     dataUStoplot = dataUS[index[ii],:]
     hailindices = ~np.isnan(dataUStoplot)
     dataUStoplot = dataUStoplot[hailindices]
-    plt.hist(dataUStoplot, bins=bins,density=True, alpha=0.5,color='#003f5c', label='CONUS')
+    plt.hist(dataUStoplot, bins=bins,density=True, alpha=0.5,color='#377eb8', label='CONUS')
     
     dataEUtoplot = dataEU[index[ii],:]
     hailindices = ~np.isnan(dataEUtoplot)
     dataEUtoplot = dataEUtoplot[hailindices]
-    plt.hist(dataEUtoplot, bins=bins,density=True, alpha=0.5,color='#bc5090', label='Europe')
+    plt.hist(dataEUtoplot, bins=bins,density=True, alpha=0.5,color='#ff7f00', label='Europe')
     
     dataAUtoplot = np.abs(dataAU[index[ii],:])
     hailindices = ~np.isnan(dataAUtoplot)
     dataAUtoplot = dataAUtoplot[hailindices]
-    plt.hist(dataAUtoplot, bins=bins,density=True, alpha=0.5,color='#ffa600', label='Australia')
+    plt.hist(dataAUtoplot, bins=bins,density=True, alpha=0.5,color='#4daf4a', label='Australia')
     
     plt.title(f'{alphabet[ii]}    {rgsModelVars[ii]}', fontsize=20)
     # plt.ylabel('Probability Density')
@@ -375,4 +376,4 @@ for ii in range(11):
         bb=0
         aa = aa+1
     
-fig.savefig(f'/glade/u/home/bblanc/Hail_Project_Extension/Hail_model/images/Paper/Fig2/PDFs_revised.pdf')
+fig.savefig(f'/glade/u/home/bblanc/Hail_Project_Extension/Hail_model/images/Paper/Fig2/PDFs_revised_v2.pdf')
